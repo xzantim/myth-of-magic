@@ -1,15 +1,15 @@
 import React from 'react';
-import logo2 from './logo2.jpeg';
 import './App.css';
+import GameWindow from './Game/GameWindow';
 
 function App() {
   return (
     <div className="App">
       <header className="App-header">
-        <img src={logo2} className="App-logo" alt="logo" />
+        <p>Myth of Magic</p>
       </header>
-      <div>
-        Work in progress.
+      <div className='App-body'>
+        <GameWindow/>
       </div>
     </div>
   );
