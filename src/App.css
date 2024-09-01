@@ -15,12 +15,18 @@
 
 .App-header {
   background-color: #282c34;
-  min-height: 100vh;
+  min-height: 5vh;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  font-size: calc(10px + 2vmin);
+  font-size: calc(10px + 1vmin);
+  color: white;
+}
+
+.App-body{
+  min-height: 93vh;
+  background-color: #282c34;
   color: white;
 }
 
@@ -28,11 +34,19 @@
   color: #61dafb;
 }
 
-@keyframes App-logo-spin {
-  from {
-    transform: rotate(0deg);
-  }
-  to {
-    transform: rotate(360deg);
-  }
+.Stats-window{
+  background-color: rgb(55, 65, 83);
 }
+
+.Navigation-window{
+  background-color: rgb(55, 65, 83);
+}
+
+.Action-window{  
+  background-color: rgb(55, 65, 83);
+}
+
+.Resource-window{  
+  background-color: rgb(55, 65, 83);
+}
+
