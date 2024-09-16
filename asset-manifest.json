@@ -1,15 +1,15 @@
 {
   "files": {
-    "main.css": "/myth-of-magic/static/css/main.75be314e.css",
-    "main.js": "/myth-of-magic/static/js/main.05d3665b.js",
+    "main.css": "/myth-of-magic/static/css/main.8a28b1a3.css",
+    "main.js": "/myth-of-magic/static/js/main.564ad345.js",
     "static/js/453.4838a41e.chunk.js": "/myth-of-magic/static/js/453.4838a41e.chunk.js",
     "index.html": "/myth-of-magic/index.html",
-    "main.75be314e.css.map": "/myth-of-magic/static/css/main.75be314e.css.map",
-    "main.05d3665b.js.map": "/myth-of-magic/static/js/main.05d3665b.js.map",
+    "main.8a28b1a3.css.map": "/myth-of-magic/static/css/main.8a28b1a3.css.map",
+    "main.564ad345.js.map": "/myth-of-magic/static/js/main.564ad345.js.map",
     "453.4838a41e.chunk.js.map": "/myth-of-magic/static/js/453.4838a41e.chunk.js.map"
   },
   "entrypoints": [
-    "static/css/main.75be314e.css",
-    "static/js/main.05d3665b.js"
+    "static/css/main.8a28b1a3.css",
+    "static/js/main.564ad345.js"
   ]
 }
