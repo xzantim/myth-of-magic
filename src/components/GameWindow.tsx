@@ -1,5 +1,8 @@
-import { Box, Grid2, Paper, styled, Tab, Tabs } from "@mui/material";
+import { Box, Button, Grid2, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { RootState } from "../store/store";
+import { incrementMana } from "../slices/manaSlice";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -37,6 +40,14 @@ export default function GameWindow() {
     setValue(newValue);
   };
 
+  const manaCount: number = useSelector(
+    (state: RootState) => state.mana.manaCount
+  );
+  const maxManaCount: number = useSelector(
+    (state: RootState) => state.mana.maxManaCount
+  );
+  const dispatch = useDispatch();
+
   return (
     <Box sx={{ flexGrow: 1 }} mx={1}>
       <Grid2 container spacing={2}>
@@ -49,48 +60,55 @@ export default function GameWindow() {
               textColor="inherit"
               variant="fullWidth"
             >
-              <Tab label="Magic" {...a11yProps(0)} />
-              <Tab label="Gathering" {...a11yProps(1)} />
-              <Tab label="Crafting" {...a11yProps(2)} />
-              <Tab label="Story" {...a11yProps(3)} />
-              <Tab label="Settings" {...a11yProps(4)} />
+              <Tab label="Story" {...a11yProps(0)} />
+              <Tab label="Magic" {...a11yProps(1)} />
+              <Tab label="Gathering" {...a11yProps(2)} />
+              <Tab label="Crafting" {...a11yProps(3)} />
+              <Tab label="Stats" {...a11yProps(4)} />
+              <Tab label="Settings" {...a11yProps(5)} />
             </Tabs>
           </Box>
         </Grid2>
-        <Grid2 size={2} spacing={3}>
-          <div className="Stats-window">
+        <Grid2 size={2}>
+          <div className="Resource-window">
             <Grid2 size={12} spacing={2} sx={{ minHeight: "50vh" }}>
-              <div className="StatItem">Stats</div>
+              <div className="ResourceItem">Resources</div>
+              <Typography>Mana: </Typography>
+              <Typography>
+                {manaCount} / {maxManaCount}
+              </Typography>
             </Grid2>
           </div>
         </Grid2>
-        <Grid2 size={8}>
+        <Grid2 size={10}>
           <Grid2 size={12}>
-            <div className="Action-window" style={{minHeight:"50vh"}}>
+            <div className="Action-window" style={{ minHeight: "50vh" }}>
               <CustomTabPanel value={value} index={0}>
-                asdf
+                Story
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
-                fdsa
+                <Typography>Magic</Typography>
+                <Button
+                  variant="contained"
+                  onClick={() => dispatch(incrementMana())}
+                >
+                  Gather Mana
+                </Button>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
-                sdfsdaf
+                Gathering
               </CustomTabPanel>
               <CustomTabPanel value={value} index={3}>
-                fffs
+                Crafting
               </CustomTabPanel>
               <CustomTabPanel value={value} index={4}>
-                aasf
+                Stats
+              </CustomTabPanel>
+              <CustomTabPanel value={value} index={5}>
+                Settings
               </CustomTabPanel>
             </div>
           </Grid2>
-        </Grid2>
-        <Grid2 size={2}>
-        <div className="Resource-window">
-            <Grid2 size={12} spacing={2} sx={{ minHeight: "50vh" }}>
-              <div className="ResourceItem">Resources</div>
-            </Grid2>
-          </div>
         </Grid2>
       </Grid2>
     </Box>

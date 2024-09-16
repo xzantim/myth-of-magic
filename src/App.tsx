@@ -1,17 +1,10 @@
 import React from 'react';
 import './App.css';
-import GameWindow from './Game/GameWindow';
+import GameWindow from './components/GameWindow';
 
-function App() {
+function App() {  
   return (
-    <div className="App">
-      <header className="App-header">
-        <p>Myth of Magic</p>
-      </header>
-      <div className='App-body'>
-        <GameWindow/>
-      </div>
-    </div>
+    <GameWindow />
   );
 }
 
