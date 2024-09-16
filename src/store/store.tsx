@@ -1,9 +1,9 @@
 import { configureStore } from "@reduxjs/toolkit";
-import counterReducer from "../slices/counterSlice"
+import manaReducer from "../slices/manaSlice"
 
 const store = configureStore({
   reducer: {
-    counter: counterReducer,
+    mana: manaReducer,
   },
 });
 
