@@ -3,6 +3,7 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { incrementMana } from "../slices/manaSlice";
+import { incrementGold } from "../slices/goldSlice";
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -46,6 +47,12 @@ export default function GameWindow() {
   const maxManaCount: number = useSelector(
     (state: RootState) => state.mana.maxManaCount
   );
+  const goldCount: number = useSelector(
+    (state: RootState) => state.gold.goldCount
+  );
+  const maxGoldCount: number = useSelector(
+    (state: RootState) => state.gold.maxGoldCount
+  );
   const dispatch = useDispatch();
 
   return (
@@ -77,6 +84,10 @@ export default function GameWindow() {
               <Typography>
                 {manaCount} / {maxManaCount}
               </Typography>
+              <Typography>Gold:</Typography>
+              <Typography>
+                {goldCount} / {maxGoldCount}
+              </Typography>
             </Grid2>
           </div>
         </Grid2>
@@ -96,7 +107,13 @@ export default function GameWindow() {
                 </Button>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
-                Gathering
+                <Typography>Gathering</Typography>
+                <Button
+                  variant="contained"
+                  onClick={() => dispatch(incrementGold())}
+                >
+                  Scavenge Gold
+                </Button>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={3}>
                 Crafting
