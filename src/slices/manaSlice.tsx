@@ -27,6 +27,10 @@ export const manaSlice = createSlice({
   },
 });
 
-export const { incrementMana, incrementManaByAmount, incrementMaxManaByAmount } = manaSlice.actions;
+export const {
+  incrementMana,
+  incrementManaByAmount,
+  incrementMaxManaByAmount,
+} = manaSlice.actions;
 
 export default manaSlice.reducer;
