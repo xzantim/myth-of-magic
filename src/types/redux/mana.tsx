@@ -1,6 +1,7 @@
 interface InitialState {
     manaCount: number;
     maxManaCount:number;
+    manaPerSecond:number;
 }
 const UpdateManaAction: string = "Mana";
 

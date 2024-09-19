@@ -2,7 +2,7 @@ import { Box, Button, Grid2, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { incrementMana } from "../slices/manaSlice";
+import { incrementMana, incrementManaByAmount, incrementmanaPerSecondByAmount } from "../slices/manaSlice";
 import { incrementGold } from "../slices/goldSlice";
 
 interface TabPanelProps {
@@ -82,7 +82,7 @@ export default function GameWindow() {
               <div className="ResourceItem">Resources</div>
               <Typography>Mana: </Typography>
               <Typography>
-                {manaCount} / {maxManaCount}
+                {manaCount.toFixed(2)} / {maxManaCount}
               </Typography>
               <Typography>Gold:</Typography>
               <Typography>
@@ -104,6 +104,13 @@ export default function GameWindow() {
                   onClick={() => dispatch(incrementMana())}
                 >
                   Gather Mana
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={manaCount < 10}
+                  onClick={() => {dispatch(incrementManaByAmount(-5)); dispatch(incrementmanaPerSecondByAmount(0.005))}}
+                >
+                  Buy Condenser (10)
                 </Button>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
