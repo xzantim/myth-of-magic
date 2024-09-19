@@ -37,3 +37,6 @@ html{
   color: #61dafb;
 }
 
+.Mui-disabled{
+  background-color: dimgray !important;
+}

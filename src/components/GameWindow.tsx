@@ -2,8 +2,16 @@ import { Box, Button, Grid2, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { incrementMana, incrementManaByAmount, incrementmanaPerSecondByAmount } from "../slices/manaSlice";
+import {
+  autoIncrementMana,
+  incrementMana,
+  incrementManaByAmount,
+  incrementmanaPerSecondByAmount,
+  incrementMaxManaByAmount,
+} from "../slices/manaSlice";
 import { incrementGold } from "../slices/goldSlice";
+
+const ticksPerSec = 10;
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -34,7 +42,20 @@ function a11yProps(index: number) {
   };
 }
 
+var myInterval: NodeJS.Timeout;
+
 export default function GameWindow() {
+  const dispatch = useDispatch();
+
+  function updateResources() {
+    dispatch(autoIncrementMana(ticksPerSec));
+  }
+
+  clearInterval(myInterval);
+  myInterval = setInterval(function () {
+    updateResources();
+  }, 1000/ticksPerSec);
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -53,7 +74,6 @@ export default function GameWindow() {
   const maxGoldCount: number = useSelector(
     (state: RootState) => state.gold.maxGoldCount
   );
-  const dispatch = useDispatch();
 
   return (
     <Box sx={{ flexGrow: 1 }} mx={1}>
@@ -108,9 +128,16 @@ export default function GameWindow() {
                 <Button
                   variant="contained"
                   disabled={manaCount < 10}
-                  onClick={() => {dispatch(incrementManaByAmount(-5)); dispatch(incrementmanaPerSecondByAmount(0.005))}}
+                  onClick={() => {dispatch(incrementManaByAmount(-10)); dispatch(incrementmanaPerSecondByAmount(0.1))}}
                 >
                   Buy Condenser (10)
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={manaCount < 10}
+                  onClick={() => {dispatch(incrementManaByAmount(-10)); dispatch(incrementMaxManaByAmount(1))}}
+                >
+                  Buy Mana Gem (10)
                 </Button>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
