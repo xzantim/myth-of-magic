@@ -2,8 +2,22 @@ import { Box, Button, Grid2, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import { incrementMana } from "../slices/manaSlice";
-import { incrementGold } from "../slices/goldSlice";
+import {
+  autoIncrementMana,
+  incrementMana,
+  incrementManaByAmount,
+  incrementmanaPerSecondByAmount,
+  incrementMaxManaByAmount,
+} from "../slices/manaSlice";
+import {
+  autoIncrementGold,
+  incrementGold,
+  incrementGoldByAmount,
+  incrementGoldPerSecondByAmount,
+  incrementMaxGoldByAmount,
+} from "../slices/goldSlice";
+
+const ticksPerSec = 10;
 
 interface TabPanelProps {
   children?: React.ReactNode;
@@ -34,7 +48,21 @@ function a11yProps(index: number) {
   };
 }
 
+var myInterval: NodeJS.Timeout;
+
 export default function GameWindow() {
+  const dispatch = useDispatch();
+
+  function updateResources() {
+    dispatch(autoIncrementMana(ticksPerSec));
+    dispatch(autoIncrementGold(ticksPerSec));
+  }
+
+  clearInterval(myInterval);
+  myInterval = setInterval(function () {
+    updateResources();
+  }, 1000 / ticksPerSec);
+
   const [value, setValue] = React.useState(0);
 
   const handleChange = (event: React.SyntheticEvent, newValue: number) => {
@@ -53,7 +81,6 @@ export default function GameWindow() {
   const maxGoldCount: number = useSelector(
     (state: RootState) => state.gold.maxGoldCount
   );
-  const dispatch = useDispatch();
 
   return (
     <Box sx={{ flexGrow: 1 }} mx={1}>
@@ -71,7 +98,7 @@ export default function GameWindow() {
               <Tab label="Magic" {...a11yProps(1)} />
               <Tab label="Gathering" {...a11yProps(2)} />
               <Tab label="Crafting" {...a11yProps(3)} />
-              <Tab label="Stats" {...a11yProps(4)} />
+              <Tab label="Character" {...a11yProps(4)} />
               <Tab label="Settings" {...a11yProps(5)} />
             </Tabs>
           </Box>
@@ -82,11 +109,11 @@ export default function GameWindow() {
               <div className="ResourceItem">Resources</div>
               <Typography>Mana: </Typography>
               <Typography>
-                {manaCount} / {maxManaCount}
+                {manaCount.toFixed(2)} / {maxManaCount}
               </Typography>
               <Typography>Gold:</Typography>
               <Typography>
-                {goldCount} / {maxGoldCount}
+                {goldCount.toFixed(2)} / {maxGoldCount}
               </Typography>
             </Grid2>
           </div>
@@ -105,21 +132,63 @@ export default function GameWindow() {
                 >
                   Gather Mana
                 </Button>
+                <Button
+                  variant="contained"
+                  disabled={manaCount < 10}
+                  onClick={() => {
+                    dispatch(incrementManaByAmount(-10));
+                    dispatch(incrementmanaPerSecondByAmount(0.1));
+                  }}
+                >
+                  Buy Condenser (10)
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={manaCount < 10}
+                  onClick={() => {
+                    dispatch(incrementManaByAmount(-10));
+                    dispatch(incrementMaxManaByAmount(1));
+                  }}
+                >
+                  Buy Mana Gem (10)
+                </Button>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
                 <Typography>Gathering</Typography>
                 <Button
                   variant="contained"
-                  onClick={() => dispatch(incrementGold())}
+                  onClick={() => {
+                    dispatch(incrementGold());
+                  }}
                 >
                   Scavenge Gold
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={goldCount < 10}
+                  onClick={() => {
+                    dispatch(incrementGoldByAmount(-10));
+                    dispatch(incrementGoldPerSecondByAmount(0.1));
+                  }}
+                >
+                  Buy Gold Mine (10)
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={goldCount < 10}
+                  onClick={() => {
+                    dispatch(incrementGoldByAmount(-10));
+                    dispatch(incrementMaxGoldByAmount(25));
+                  }}
+                >
+                  Buy Gold Storage (10)
                 </Button>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={3}>
                 Crafting
               </CustomTabPanel>
               <CustomTabPanel value={value} index={4}>
-                Stats
+                Character
               </CustomTabPanel>
               <CustomTabPanel value={value} index={5}>
                 Settings
