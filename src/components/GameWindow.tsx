@@ -16,6 +16,7 @@ import {
   incrementGoldPerSecondByAmount,
   incrementMaxGoldByAmount,
 } from "../slices/goldSlice";
+import MagicTabContent from "./Magic/MagicTabContent";
 
 const ticksPerSec = 10;
 
@@ -125,33 +126,7 @@ export default function GameWindow() {
                 Story
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
-                <Typography>Magic</Typography>
-                <Button
-                  variant="contained"
-                  onClick={() => dispatch(incrementMana())}
-                >
-                  Gather Mana
-                </Button>
-                <Button
-                  variant="contained"
-                  disabled={manaCount < 10}
-                  onClick={() => {
-                    dispatch(incrementManaByAmount(-10));
-                    dispatch(incrementmanaPerSecondByAmount(0.1));
-                  }}
-                >
-                  Buy Condenser (10)
-                </Button>
-                <Button
-                  variant="contained"
-                  disabled={manaCount < 10}
-                  onClick={() => {
-                    dispatch(incrementManaByAmount(-10));
-                    dispatch(incrementMaxManaByAmount(1));
-                  }}
-                >
-                  Buy Mana Gem (10)
-                </Button>
+                <MagicTabContent/>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
                 <Typography>Gathering</Typography>
