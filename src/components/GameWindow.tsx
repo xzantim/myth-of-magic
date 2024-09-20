@@ -9,7 +9,13 @@ import {
   incrementmanaPerSecondByAmount,
   incrementMaxManaByAmount,
 } from "../slices/manaSlice";
-import { incrementGold } from "../slices/goldSlice";
+import {
+  autoIncrementGold,
+  incrementGold,
+  incrementGoldByAmount,
+  incrementGoldPerSecondByAmount,
+  incrementMaxGoldByAmount,
+} from "../slices/goldSlice";
 
 const ticksPerSec = 10;
 
@@ -49,12 +55,13 @@ export default function GameWindow() {
 
   function updateResources() {
     dispatch(autoIncrementMana(ticksPerSec));
+    dispatch(autoIncrementGold(ticksPerSec));
   }
 
   clearInterval(myInterval);
   myInterval = setInterval(function () {
     updateResources();
-  }, 1000/ticksPerSec);
+  }, 1000 / ticksPerSec);
 
   const [value, setValue] = React.useState(0);
 
@@ -91,7 +98,7 @@ export default function GameWindow() {
               <Tab label="Magic" {...a11yProps(1)} />
               <Tab label="Gathering" {...a11yProps(2)} />
               <Tab label="Crafting" {...a11yProps(3)} />
-              <Tab label="Stats" {...a11yProps(4)} />
+              <Tab label="Character" {...a11yProps(4)} />
               <Tab label="Settings" {...a11yProps(5)} />
             </Tabs>
           </Box>
@@ -106,7 +113,7 @@ export default function GameWindow() {
               </Typography>
               <Typography>Gold:</Typography>
               <Typography>
-                {goldCount} / {maxGoldCount}
+                {goldCount.toFixed(2)} / {maxGoldCount}
               </Typography>
             </Grid2>
           </div>
@@ -128,14 +135,20 @@ export default function GameWindow() {
                 <Button
                   variant="contained"
                   disabled={manaCount < 10}
-                  onClick={() => {dispatch(incrementManaByAmount(-10)); dispatch(incrementmanaPerSecondByAmount(0.1))}}
+                  onClick={() => {
+                    dispatch(incrementManaByAmount(-10));
+                    dispatch(incrementmanaPerSecondByAmount(0.1));
+                  }}
                 >
                   Buy Condenser (10)
                 </Button>
                 <Button
                   variant="contained"
                   disabled={manaCount < 10}
-                  onClick={() => {dispatch(incrementManaByAmount(-10)); dispatch(incrementMaxManaByAmount(1))}}
+                  onClick={() => {
+                    dispatch(incrementManaByAmount(-10));
+                    dispatch(incrementMaxManaByAmount(1));
+                  }}
                 >
                   Buy Mana Gem (10)
                 </Button>
@@ -144,16 +157,38 @@ export default function GameWindow() {
                 <Typography>Gathering</Typography>
                 <Button
                   variant="contained"
-                  onClick={() => dispatch(incrementGold())}
+                  onClick={() => {
+                    dispatch(incrementGold());
+                  }}
                 >
                   Scavenge Gold
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={goldCount < 10}
+                  onClick={() => {
+                    dispatch(incrementGoldByAmount(-10));
+                    dispatch(incrementGoldPerSecondByAmount(0.1));
+                  }}
+                >
+                  Buy Gold Mine (10)
+                </Button>
+                <Button
+                  variant="contained"
+                  disabled={goldCount < 10}
+                  onClick={() => {
+                    dispatch(incrementGoldByAmount(-10));
+                    dispatch(incrementMaxGoldByAmount(25));
+                  }}
+                >
+                  Buy Gold Storage (10)
                 </Button>
               </CustomTabPanel>
               <CustomTabPanel value={value} index={3}>
                 Crafting
               </CustomTabPanel>
               <CustomTabPanel value={value} index={4}>
-                Stats
+                Character
               </CustomTabPanel>
               <CustomTabPanel value={value} index={5}>
                 Settings

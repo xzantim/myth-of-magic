@@ -11,28 +11,26 @@ export const manaSlice = createSlice({
   name: UpdateManaAction,
   initialState: initialState,
   reducers: {
-    
     autoIncrementMana: (state, action: PayloadAction<number>) => {
       if (state.manaCount < state.maxManaCount) {
-        state.manaCount += (state.manaPerSecond/action.payload);
+        state.manaCount += state.manaPerSecond / action.payload;
       }
       if (state.manaCount > state.maxManaCount) {
         state.manaCount = state.maxManaCount;
       }
     },
     incrementMana: (state) => {
-      if ((state.manaCount + 1 ) < state.maxManaCount) {
+      if (state.manaCount + 1 < state.maxManaCount) {
         state.manaCount += 1;
-      }
-      else{
+      } else {
         state.manaCount = state.maxManaCount;
       }
     },
-    incrementManaByAmount: (state, action: PayloadAction<number>) => {      
-        state.manaCount += action.payload;
-        if (state.manaCount > state.maxManaCount) {
-          state.manaCount = state.maxManaCount;
-        }
+    incrementManaByAmount: (state, action: PayloadAction<number>) => {
+      state.manaCount += action.payload;
+      if (state.manaCount > state.maxManaCount) {
+        state.manaCount = state.maxManaCount;
+      }
     },
     incrementMaxManaByAmount: (state, action: PayloadAction<number>) => {
       state.maxManaCount += action.payload;
