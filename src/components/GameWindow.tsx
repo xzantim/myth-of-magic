@@ -4,10 +4,6 @@ import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import {
   autoIncrementMana,
-  incrementMana,
-  incrementManaByAmount,
-  incrementmanaPerSecondByAmount,
-  incrementMaxManaByAmount,
 } from "../slices/manaSlice";
 import {
   autoIncrementGold,

@@ -1,5 +1,4 @@
-import { Button, Grid2 as Grid, Tooltip, Typography } from "@mui/material";
-import React from "react";
+import { Grid2 as Grid, Typography } from "@mui/material";
 import { useDispatch, useSelector } from "react-redux";
 import {
   incrementMana,
