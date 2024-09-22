@@ -1,0 +1,37 @@
+{
+  "MagicSkills": [
+    {
+      "SkillTitle": "Gather Mana",
+      "Description": "Gather mana from the environment manually.",
+      "Costs": [
+        {
+          "CostType": 0,
+          "Cost": 0
+        }
+      ],
+      "Effect": "Gain a single unit of mana"
+    },
+    {
+      "SkillTitle": "Buy Condenser",
+      "Description": "Purchase a mana condesner. This object automatically draws in mana from the environment.",
+      "Costs": [
+        {
+          "CostType": 0,
+          "Cost": 10
+        }
+      ],
+      "Effect": "Gain 0.1 mana per second"
+    },
+    {
+      "SkillTitle": "Buy Mana Gem",
+      "Description": "Purchase a mana gem. A mana gem increases your maximum mana storage.",
+      "Costs": [
+        {
+          "CostType": 0,
+          "Cost": 10
+        }
+      ],
+      "Effect": "Increase max mana by 1"
+    }
+  ]
+}
