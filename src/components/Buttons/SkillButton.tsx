@@ -3,6 +3,9 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
+import { CostDetails, ResourceType, SkillDetails } from "../Skills/SkillTypes";
+import { RootState } from "../../store/store";
+import { useSelector } from "react-redux";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -17,44 +20,65 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 }));
 
 type SkillButtonProps = {
-  SkillTitle: string;
-  Description: string;
-  Cost: number;
-  Effect: string;
-  Disabled: boolean;
+  Skill: SkillDetails;
   OnClick: () => void;
 };
 
-export default function SkillButton({
-  SkillTitle,
-  Description,
-  Cost,
-  Effect,
-  Disabled,
-  OnClick,
-}: SkillButtonProps) {
+function DisabledCheck(Costs: CostDetails[]): boolean {
+  const manaCount: number = useSelector(
+    (state: RootState) => state.mana.manaCount
+  );
+  const goldCount: number = useSelector(
+    (state: RootState) => state.gold.goldCount
+  );
+  var disabled: boolean = false;
+  Costs.map(function (cost) {
+    switch (cost.CostType) {
+      case 0:
+        disabled = manaCount < cost.Cost;
+        return;
+      case 1:
+        disabled = goldCount < cost.Cost;
+        return;
+      default:
+        return;
+    }
+  });
+  return disabled;
+}
+
+export default function SkillButton({ Skill, OnClick }: SkillButtonProps) {
   return (
     <div>
       <HtmlTooltip
         title={
           <React.Fragment>
-            <Typography color="inherit">{SkillTitle}</Typography>
-            {Description}
+            <Typography color="inherit">{Skill.SkillTitle}</Typography>
+            {Skill.Description}
             <br />
             <br />
-            <b>Cost:</b> {Cost}
+            {Skill.Costs.map(function (data) {
+              return (
+                <span>
+                  <b>
+                    {ResourceType[data.CostType]}: {data.Cost}
+                  </b>
+                  <br />
+                </span>
+              );
+            })}
             <br />
-            <b>Effect:</b> {Effect}
+            <b>Effect:</b> {Skill.Effect}
           </React.Fragment>
         }
       >
         <span>
           <Button
-            disabled={Disabled}
+            disabled={DisabledCheck(Skill.Costs)}
             variant="contained"
             onClick={() => OnClick()}
           >
-            {SkillTitle}
+            {Skill.SkillTitle}
           </Button>
         </span>
       </HtmlTooltip>

@@ -1,0 +1,72 @@
+{
+  "MagicSkills": [
+    {
+      "SkillTitle": "Gather Mana",
+      "Description": "Gather mana from the environment manually.",
+      "Costs": [
+        {
+          "CostType": 0,
+          "Cost": 0
+        }
+      ],
+      "Effect": "Gain a single unit of mana"
+    },
+    {
+      "SkillTitle": "Buy Condenser",
+      "Description": "Purchase a mana condesner. This object automatically draws in mana from the environment.",
+      "Costs": [
+        {
+          "CostType": 0,
+          "Cost": 10
+        }
+      ],
+      "Effect": "Gain 0.1 mana per second"
+    },
+    {
+      "SkillTitle": "Buy Mana Gem",
+      "Description": "Purchase a mana gem. A mana gem increases your maximum mana storage.",
+      "Costs": [
+        {
+          "CostType": 0,
+          "Cost": 10
+        }
+      ],
+      "Effect": "Increase max mana by 1"
+    }
+  ],
+  "GatheringSkills": [
+    {
+      "SkillTitle": "Scavenge Gold",
+      "Description": "Dig around to try to find something useful",
+      "Costs": [
+        {
+          "CostType": 1,
+          "Cost": 0
+        }
+      ],
+      "Effect": "Gain a single gold coin"
+    },
+    {
+      "SkillTitle": "Build Gold Mine",
+      "Description": "Build a gold mine to start earning passive gold",
+      "Costs": [
+        {
+          "CostType": 1,
+          "Cost": 10
+        }
+      ],
+      "Effect": "Gain 0.1 gold per second"
+    },
+    {
+      "SkillTitle": "Build gold warehouse",
+      "Description": "Create something to store all that lovely gold",
+      "Costs": [
+        {
+          "CostType": 1,
+          "Cost": 10
+        }
+      ],
+      "Effect": "Increase max gold by 25"
+    }
+  ]
+}
