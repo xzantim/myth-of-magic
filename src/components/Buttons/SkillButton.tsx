@@ -50,7 +50,7 @@ function DisabledCheck(Costs: CostDetails[]): boolean {
 export default function SkillButton({ Skill, OnClick }: SkillButtonProps) {
   return (
     <div>
-      <Tooltip
+      <HtmlTooltip
         title={
           <React.Fragment>
             <Typography color="inherit">{Skill.SkillTitle}</Typography>
@@ -81,7 +81,7 @@ export default function SkillButton({ Skill, OnClick }: SkillButtonProps) {
             {Skill.SkillTitle}
           </Button>
         </span>
-      </Tooltip>
+      </HtmlTooltip>
     </div>
   );
 }

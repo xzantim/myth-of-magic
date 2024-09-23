@@ -1,21 +1,17 @@
 import { Grid2 as Grid, Typography } from "@mui/material";
-import { useDispatch, useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
 import {
   incrementMana,
   incrementManaByAmount,
   incrementmanaPerSecondByAmount,
   incrementMaxManaByAmount,
 } from "../../slices/manaSlice";
-import { RootState } from "../../store/store";
 import SkillButton from "../Buttons/SkillButton";
 import { SkillDetails } from "../Skills/SkillTypes";
 import SkillsData from "../Resources/Skills.json";
 
 export default function MagicTabContent() {
   const dispatch = useDispatch();
-  const manaCount: number = useSelector(
-    (state: RootState) => state.mana.manaCount
-  );
   return (
     <div>
       <Typography>Magic</Typography>

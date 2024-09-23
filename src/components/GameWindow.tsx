@@ -2,9 +2,7 @@ import { Box, Button, Grid2, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
-import {
-  autoIncrementMana,
-} from "../slices/manaSlice";
+import { autoIncrementMana } from "../slices/manaSlice";
 import {
   autoIncrementGold,
   incrementGold,
@@ -13,6 +11,7 @@ import {
   incrementMaxGoldByAmount,
 } from "../slices/goldSlice";
 import MagicTabContent from "./Magic/MagicTabContent";
+import GatheringTabContent from "./Gathering/GatheringTabContent";
 
 const ticksPerSec = 10;
 
@@ -122,38 +121,10 @@ export default function GameWindow() {
                 Story
               </CustomTabPanel>
               <CustomTabPanel value={value} index={1}>
-                <MagicTabContent/>
+                <MagicTabContent />
               </CustomTabPanel>
               <CustomTabPanel value={value} index={2}>
-                <Typography>Gathering</Typography>
-                <Button
-                  variant="contained"
-                  onClick={() => {
-                    dispatch(incrementGold());
-                  }}
-                >
-                  Scavenge Gold
-                </Button>
-                <Button
-                  variant="contained"
-                  disabled={goldCount < 10}
-                  onClick={() => {
-                    dispatch(incrementGoldByAmount(-10));
-                    dispatch(incrementGoldPerSecondByAmount(0.1));
-                  }}
-                >
-                  Buy Gold Mine (10)
-                </Button>
-                <Button
-                  variant="contained"
-                  disabled={goldCount < 10}
-                  onClick={() => {
-                    dispatch(incrementGoldByAmount(-10));
-                    dispatch(incrementMaxGoldByAmount(25));
-                  }}
-                >
-                  Buy Gold Storage (10)
-                </Button>
+                <GatheringTabContent />
               </CustomTabPanel>
               <CustomTabPanel value={value} index={3}>
                 Crafting
