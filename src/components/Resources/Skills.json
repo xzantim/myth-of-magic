@@ -9,6 +9,12 @@
           "Cost": 0
         }
       ],
+      "Actions": [
+        {
+          "ActionName": "incrementMana",
+          "Value": 0
+        }
+      ],
       "Effect": "Gain a single unit of mana"
     },
     {
@@ -20,6 +26,16 @@
           "Cost": 10
         }
       ],
+      "Actions": [
+        {
+          "ActionName": "incrementManaByAmount",
+          "Value": -10
+        },
+        {
+          "ActionName": "incrementmanaPerSecondByAmount",
+          "Value": 0.1
+        }
+      ],
       "Effect": "Gain 0.1 mana per second"
     },
     {
@@ -29,6 +45,16 @@
         {
           "CostType": 0,
           "Cost": 10
+        }
+      ],
+      "Actions": [
+        {
+          "ActionName": "incrementManaByAmount",
+          "Value": -10
+        },
+        {
+          "ActionName": "incrementMaxManaByAmount",
+          "Value": 1
         }
       ],
       "Effect": "Increase max mana by 1"

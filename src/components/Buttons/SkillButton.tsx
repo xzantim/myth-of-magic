@@ -3,9 +3,20 @@ import { styled } from "@mui/material/styles";
 import Button from "@mui/material/Button";
 import Tooltip, { TooltipProps, tooltipClasses } from "@mui/material/Tooltip";
 import Typography from "@mui/material/Typography";
-import { CostDetails, ResourceType, SkillDetails } from "../Skills/SkillTypes";
+import {
+  ActionDetail,
+  CostDetails,
+  ResourceType,
+  SkillDetails,
+} from "../Skills/SkillTypes";
 import { RootState } from "../../store/store";
-import { useSelector } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
+import {
+  incrementMana,
+  incrementManaByAmount,
+  incrementmanaPerSecondByAmount,
+  incrementMaxManaByAmount,
+} from "../../slices/manaSlice";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -21,10 +32,9 @@ const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
 
 type SkillButtonProps = {
   Skill: SkillDetails;
-  OnClick: () => void;
 };
 
-function DisabledCheck(Costs: CostDetails[]): boolean {
+function DisabledCheck(costs: CostDetails[]): boolean {
   const manaCount: number = useSelector(
     (state: RootState) => state.mana.manaCount
   );
@@ -32,22 +42,45 @@ function DisabledCheck(Costs: CostDetails[]): boolean {
     (state: RootState) => state.gold.goldCount
   );
   var disabled: boolean = false;
-  Costs.map(function (cost) {
+  costs.map(function (cost) {
     switch (cost.CostType) {
       case 0:
         disabled = manaCount < cost.Cost;
-        return;
+        return null;
       case 1:
         disabled = goldCount < cost.Cost;
-        return;
+        return null;
       default:
-        return;
+        return null;
     }
   });
   return disabled;
 }
 
-export default function SkillButton({ Skill, OnClick }: SkillButtonProps) {
+export default function SkillButton({ Skill }: SkillButtonProps) {
+  const dispatch = useDispatch();
+
+  function HandleSkillButtonAction(actionDetails: ActionDetail[]): void {
+    actionDetails?.map(function (action) {
+      switch (action.ActionName) {
+        case "incrementMana":
+          dispatch(incrementMana());
+          return null;
+        case "incrementManaByAmount":
+          dispatch(incrementManaByAmount(action.Value));
+          return null;
+        case "incrementmanaPerSecondByAmount":
+          dispatch(incrementmanaPerSecondByAmount(action.Value));
+          return null;
+        case "incrementMaxManaByAmount":
+          dispatch(incrementMaxManaByAmount(action.Value));
+          return null;
+        default:
+          return null;
+      }
+    });
+  }
+
   return (
     <div>
       <HtmlTooltip
@@ -57,9 +90,9 @@ export default function SkillButton({ Skill, OnClick }: SkillButtonProps) {
             {Skill.Description}
             <br />
             <br />
-            {Skill.Costs.map(function (data) {
+            {Skill.Costs.map(function (data, index) {
               return (
-                <span>
+                <span key={index}>
                   <b>
                     {ResourceType[data.CostType]}: {data.Cost}
                   </b>
@@ -76,7 +109,7 @@ export default function SkillButton({ Skill, OnClick }: SkillButtonProps) {
           <Button
             disabled={DisabledCheck(Skill.Costs)}
             variant="contained"
-            onClick={() => OnClick()}
+            onClick={() => HandleSkillButtonAction(Skill.Actions)}
           >
             {Skill.SkillTitle}
           </Button>

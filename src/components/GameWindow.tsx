@@ -1,14 +1,10 @@
-import { Box, Button, Grid2, Tab, Tabs, Typography } from "@mui/material";
+import { Box, Grid2, Tab, Tabs, Typography } from "@mui/material";
 import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { autoIncrementMana } from "../slices/manaSlice";
 import {
   autoIncrementGold,
-  incrementGold,
-  incrementGoldByAmount,
-  incrementGoldPerSecondByAmount,
-  incrementMaxGoldByAmount,
 } from "../slices/goldSlice";
 import MagicTabContent from "./Magic/MagicTabContent";
 import GatheringTabContent from "./Gathering/GatheringTabContent";
