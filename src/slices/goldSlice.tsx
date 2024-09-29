@@ -4,7 +4,7 @@ import goldInitialState, { UpdateGoldAction } from "../types/redux/gold";
 const initialState: goldInitialState = {
   goldCount: 0,
   maxGoldCount: 100,
-  goldPerSecond: 0.1,
+  goldPerSecond: 0,
 };
 
 export const goldSlice = createSlice({

@@ -70,6 +70,12 @@
           "Cost": 0
         }
       ],
+      "Actions": [
+        {
+          "ActionName": "incrementGold",
+          "Value": 0
+        }
+      ],
       "Effect": "Gain a single gold coin"
     },
     {
@@ -81,6 +87,16 @@
           "Cost": 10
         }
       ],
+      "Actions": [
+        {
+          "ActionName": "incrementGoldByAmount",
+          "Value": -10
+        },
+        {
+          "ActionName": "incrementGoldPerSecondByAmount",
+          "Value": 0.1
+        }
+      ],
       "Effect": "Gain 0.1 gold per second"
     },
     {
@@ -90,6 +106,16 @@
         {
           "CostType": 1,
           "Cost": 10
+        }
+      ],
+      "Actions": [
+        {
+          "ActionName": "incrementGoldByAmount",
+          "Value": -10
+        },
+        {
+          "ActionName": "incrementMaxGoldByAmount",
+          "Value": 25
         }
       ],
       "Effect": "Increase max gold by 25"

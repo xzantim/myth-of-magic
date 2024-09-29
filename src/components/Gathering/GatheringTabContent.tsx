@@ -9,28 +9,13 @@ export default function GatheringTabContent() {
       <Typography>Gathering</Typography>
       <Grid container spacing={2} margin={2}>
         <Grid size={3}>
-          <SkillButton
-            Skill={SkillData.GatheringSkills[0] as SkillDetails}
-            // OnClick={() => dispatch(incrementGold())}
-          />
+          <SkillButton Skill={SkillData.GatheringSkills[0] as SkillDetails} />
         </Grid>
         <Grid size={3}>
-          <SkillButton
-            Skill={SkillData.GatheringSkills[1] as SkillDetails}
-            // OnClick={() => {
-            //   dispatch(incrementGoldByAmount(-10));
-            //   dispatch(incrementGoldPerSecondByAmount(0.1));
-            // }}
-          />
+          <SkillButton Skill={SkillData.GatheringSkills[1] as SkillDetails} />
         </Grid>
         <Grid size={3}>
-          <SkillButton
-            Skill={SkillData.GatheringSkills[2] as SkillDetails}
-            // OnClick={() => {
-            //   dispatch(incrementGoldByAmount(-10));
-            //   dispatch(incrementMaxGoldByAmount(25));
-            // }}
-          />
+          <SkillButton Skill={SkillData.GatheringSkills[2] as SkillDetails} />
         </Grid>
       </Grid>
     </div>

@@ -17,6 +17,12 @@ import {
   incrementmanaPerSecondByAmount,
   incrementMaxManaByAmount,
 } from "../../slices/manaSlice";
+import {
+  incrementGold,
+  incrementGoldByAmount,
+  incrementGoldPerSecondByAmount,
+  incrementMaxGoldByAmount,
+} from "../../slices/goldSlice";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -74,6 +80,18 @@ export default function SkillButton({ Skill }: SkillButtonProps) {
           return null;
         case "incrementMaxManaByAmount":
           dispatch(incrementMaxManaByAmount(action.Value));
+          return null;
+        case "incrementGold":
+          dispatch(incrementGold());
+          return null;
+        case "incrementGoldByAmount":
+          dispatch(incrementGoldByAmount(action.Value));
+          return null;
+        case "incrementGoldPerSecondByAmount":
+          dispatch(incrementGoldPerSecondByAmount(action.Value));
+          return null;
+        case "incrementMaxGoldByAmount":
+          dispatch(incrementMaxGoldByAmount(action.Value));
           return null;
         default:
           return null;
