@@ -3,11 +3,10 @@ import React from "react";
 import { useDispatch, useSelector } from "react-redux";
 import { RootState } from "../store/store";
 import { autoIncrementMana } from "../slices/manaSlice";
-import {
-  autoIncrementGold,
-} from "../slices/goldSlice";
+import { autoIncrementGold } from "../slices/goldSlice";
 import MagicTabContent from "./Magic/MagicTabContent";
 import GatheringTabContent from "./Gathering/GatheringTabContent";
+import BasicModal from "./modal";
 
 const ticksPerSec = 10;
 
@@ -91,7 +90,9 @@ export default function GameWindow() {
               <Tab label="Gathering" {...a11yProps(2)} />
               <Tab label="Crafting" {...a11yProps(3)} />
               <Tab label="Character" {...a11yProps(4)} />
-              <Tab label="Settings" {...a11yProps(5)} />
+              <div>
+                  <BasicModal />
+              </div>
             </Tabs>
           </Box>
         </Grid2>
@@ -127,9 +128,6 @@ export default function GameWindow() {
               </CustomTabPanel>
               <CustomTabPanel value={value} index={4}>
                 Character
-              </CustomTabPanel>
-              <CustomTabPanel value={value} index={5}>
-                Settings
               </CustomTabPanel>
             </div>
           </Grid2>
