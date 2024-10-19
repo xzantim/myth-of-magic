@@ -4,6 +4,7 @@ type SkillDetails = {
   Costs: CostDetails[];
   Actions: ActionDetail[];
   Effect: string;
+  MaxAmount:number;
 };
 
 type ActionDetail = {

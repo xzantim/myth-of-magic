@@ -16,6 +16,7 @@ import {
   incrementManaByAmount,
   incrementmanaPerSecondByAmount,
   incrementMaxManaByAmount,
+  payManaCost,
 } from "../../slices/manaSlice";
 import {
   incrementGold,
@@ -23,6 +24,7 @@ import {
   incrementGoldPerSecondByAmount,
   incrementMaxGoldByAmount,
 } from "../../slices/goldSlice";
+import { useState } from "react";
 
 const HtmlTooltip = styled(({ className, ...props }: TooltipProps) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -40,7 +42,7 @@ type SkillButtonProps = {
   Skill: SkillDetails;
 };
 
-function DisabledCheck(costs: CostDetails[]): boolean {
+function DisabledCheck(costs: CostDetails[], costMultiplier:number,  currentLevel:number, maxLevel:number): boolean {
   const manaCount: number = useSelector(
     (state: RootState) => state.mana.manaCount
   );
@@ -51,20 +53,30 @@ function DisabledCheck(costs: CostDetails[]): boolean {
   costs.map(function (cost) {
     switch (cost.CostType) {
       case 0:
-        disabled = manaCount < cost.Cost;
+        disabled = manaCount < (cost.Cost * costMultiplier);
         return null;
       case 1:
-        disabled = goldCount < cost.Cost;
+        disabled = goldCount < (cost.Cost * costMultiplier);
         return null;
       default:
         return null;
     }
   });
+  if(currentLevel === maxLevel && maxLevel !== 0){
+    disabled = true;
+  }
   return disabled;
 }
 
 export default function SkillButton({ Skill }: SkillButtonProps) {
   const dispatch = useDispatch();
+  const [skillLevel, setSkillLevel] = useState(0);
+  const [skillCostMultiplier, setSkillCostMultiplier] = useState(1);
+
+  function handleSkillPurchase(skillAction:ActionDetail[], maxLevel:number){
+    setSkillLevel(skillLevel + 1);
+    HandleSkillButtonAction(skillAction);
+  }
 
   function HandleSkillButtonAction(actionDetails: ActionDetail[]): void {
     actionDetails?.map(function (action) {
@@ -81,6 +93,9 @@ export default function SkillButton({ Skill }: SkillButtonProps) {
         case "incrementMaxManaByAmount":
           dispatch(incrementMaxManaByAmount(action.Value));
           return null;
+          case "payManaCost":    
+            dispatch(payManaCost(action.Value * skillCostMultiplier));            
+            return null;
         case "incrementGold":
           dispatch(incrementGold());
           return null;
@@ -112,7 +127,7 @@ export default function SkillButton({ Skill }: SkillButtonProps) {
               return (
                 <span key={index}>
                   <b>
-                    {ResourceType[data.CostType]}: {data.Cost}
+                    {ResourceType[data.CostType]}: {data.Cost * skillCostMultiplier}
                   </b>
                   <br />
                 </span>
@@ -120,14 +135,18 @@ export default function SkillButton({ Skill }: SkillButtonProps) {
             })}
             <br />
             <b>Effect:</b> {Skill.Effect}
+            <br />
+            {Skill.MaxAmount > 0 &&            
+            <b>Level: {skillLevel} / {Skill.MaxAmount} </b> 
+            }
           </React.Fragment>
         }
       >
         <span>
           <Button
-            disabled={DisabledCheck(Skill.Costs)}
+            disabled={DisabledCheck(Skill.Costs, skillCostMultiplier, skillLevel, Skill.MaxAmount)}
             variant="contained"
-            onClick={() => HandleSkillButtonAction(Skill.Actions)}
+            onClick={() => {handleSkillPurchase(Skill.Actions, Skill.MaxAmount); setSkillCostMultiplier((skillLevel + 1) * 1.5);}}
           >
             {Skill.SkillTitle}
           </Button>
