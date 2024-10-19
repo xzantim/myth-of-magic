@@ -32,6 +32,9 @@ export const manaSlice = createSlice({
         state.manaCount = state.maxManaCount;
       }
     },
+    payManaCost:(state, action: PayloadAction<number>) => {
+      state.manaCount -= action.payload;
+    },
     incrementMaxManaByAmount: (state, action: PayloadAction<number>) => {
       state.maxManaCount += action.payload;
     },
@@ -45,6 +48,7 @@ export const {
   incrementMana,
   incrementManaByAmount,
   incrementMaxManaByAmount,
+  payManaCost,
   incrementmanaPerSecondByAmount,
   autoIncrementMana,
 } = manaSlice.actions;
